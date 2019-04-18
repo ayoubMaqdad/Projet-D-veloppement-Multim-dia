@@ -1,43 +1,68 @@
-<!doctype html>
-<html lang=”en”>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <title>Projet Développement Multimédia:capture d'ecran</title>
 
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Name of your awesome camera app -->
-    <title>Camera App</title>
-    <!-- Link to your main style sheet-->
-    <link rel="stylesheet" href="style_multimedia.css">
 
+    <script src="script_multimedia.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style >
+        .foo{
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(14, 27, 99, 0.514);
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #titre{
+            color: darkblue;
+            text-align: center;
+            margin-top: 20px;
+        }
+        #divs{
+            display: none;
+        }
+        .header{
+            margin-top: 30px;
+            margin-bottom:  30px;
+        }
+    </style>
 </head>
+<body class="container">
+<h2 id="titre">Projet Développement Multimédia:capture d'ecran</h2>
+<div class="header" >
+    <h1 class="custom-control-inline">commencer a capturer</h1><button onclick="watch_video()" class="btn btn-primary">PHOTO</button>
+</div>
+<div  class=" container" id="divs">
+    <div class="row"  >
+        <div class="col-md-6" >
+            <div id="webcam_container">
+                <video autoplay="true" loop id="MyCam" width="480" height="320"></video>
+            </div>
+        </div>
+        <div class="col-md-6" >
+            <canvas id="canvas" width="480" height="320"></canvas>
+            <button class="btn btn-primary" id="btnCapture">Capture</button>
+            <span class="count" id="countdown">3</span>
+        </div>
+    </div>
+    <br>
 
-<body>
+</div>
+<textarea id='tar' style='width:50%;height:200px;'></textarea>
+<footer >
+    <nav >
+        <hr/>
+        <div class="foo" class="container" >
 
-<!-- Camera -->
+               developed by ayoub maqdad glisid Copyright @2019
 
-<main id="camera">
-
-    <!-- Camera sensor -->
-    <canvas id="camera--sensor"></canvas>
-
-    <!-- Camera view -->
-    <video id="camera--view" autoplay playsinline></video>
-
-
-
-    <!--<img src="//:0" alt="" id="camera&#45;&#45;output">-->
-    <button id="camera--trigger">Take a picture</button>
-    <!-- Camera trigger -->
-    <span id="countdown">3</span>
-
-
-
-</main>
-
-<!-- Reference to your JavaScript file -->
-<script src="script_multimedia.js"></script>
-
+        </div>
+</footer>
 </body>
 </html>
-
