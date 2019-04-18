@@ -61,6 +61,9 @@ function capture(){
             clearInterval(countdown);
             captureFlag = true;
             imcanvas.drawImage(MyCam, 0, 0, canvas.width, canvas.height);
+            var base64 = document.getElementById('canvas').toDataURL("image/png");	//l'image au format base 64
+            document.getElementById('tar').value = '';
+            document.getElementById('tar').value = base64;
         }
     }, 1000);
 
