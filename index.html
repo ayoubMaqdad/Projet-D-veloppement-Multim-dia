@@ -3,17 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Projet Développement Multimédia:capture d'ecran</title>
-
+    <script src="https://unpkg.com/konva@3.2.4/konva.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
     <script src="script_multimedia.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style >
+        body {
+        margin: 0;
+        padding: 0;
+       
+        background-color: #f0f0f0;
+      }
         .foo{
             position: fixed;
             left: 0;
             bottom: 0;
             width: 100%;
-            background-color: rgba(14, 27, 99, 0.514);
+            background-color: rgba(18, 27, 99, 0.514);
             color: white;
             padding: 10px;
             text-align: center;
@@ -24,19 +31,25 @@
             text-align: center;
             margin-top: 20px;
         }
-        #divs,#content{
+        #divs,#content,#download{
             display: none;
         }
-        .header{
+        #header{
             margin-top: 30px;
             margin-bottom:  30px;
         }
+        a
+{
+color: white;
+text-decoration: none;
+}
+
     </style>
 </head>
 <body class="container">
 <h4 id="titre">Projet Développement Multimédia:capture d'ecran</h4>
-<div class="header" >
-    <h3 class="custom-control-inline">commencer a capturer</h3><button onclick="watch_video()" class="btn btn-primary">PHOTO</button>
+<div id="header" >
+    <h3 id="gg" class="custom-control-inline">commencer a capturer</h3><button onclick="init()" class="btn btn-primary">PHOTO</button>
 </div>
 <div  class=" container" id="divs">
     <div class="row"  >
@@ -48,9 +61,12 @@
         <div class="col-md-6" >
             <canvas id="canvas" width="480" height="320" class="border border-primary" ></canvas>
             <button class="btn btn-primary" id="btnCapture">Capture</button>
-
+            <button class="btn btn-primary "id="download" ><a  href="" download="img.jpeg" id="enregistrer">Enregistrer</a></button>
         </div>
     </div>
+    <br>
+    <div id="container"></div>
+    
     <br>
     <div id="content">
         <h4 >code64 de la photo capture</h4> <textarea id='tar' style='width:50%;height:200px;'></textarea>
@@ -60,10 +76,10 @@
 
 <footer >
     <nav >
-        <hr/>
+        
         <div class="foo" class="container" >
 
-               developed by ayoub maqdad glisid Copyright @2019
+               developed by ayoub maqdad glsid Copyright @2019
 
         </div>
 </footer>

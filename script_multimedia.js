@@ -4,20 +4,25 @@ var btnCapture;
 var imcanvas;
 var captureFlag = false;
 
-function watch_video(){
+function init(){
 
     document.getElementById("divs").style.display = "block";
 
     MyCam = document.getElementById("MyCam");
     canvas = document.getElementById("canvas");
     btnCapture = document.getElementById("btnCapture");
-
+    btnDownload = document.getElementById("enregistrer");
 
     imcanvas = canvas.getContext("2d");
 
     btnCapture.addEventListener("click", capture);
+    btnDownload.addEventListener("click", enregistrer);
+    
+    capturer();
 
+}
 
+function capturer(){
     navigator.getUserMedia = (
 
         navigator.getUserMedia ||
@@ -29,7 +34,7 @@ function watch_video(){
 
         navigator.getUserMedia({
             video : true,
-        }, SuccessCapture, ErrorCapture);
+        }, reussiteCapture, ereurCapture);
 
     }else{
         var source = document.createElement('source');
@@ -40,18 +45,21 @@ function watch_video(){
 
 }
 
-function SuccessCapture(stream){
+function reussiteCapture(stream){
     MyCam.srcObject = stream;
 }
 
-function ErrorCapture(error){
+function ereurCapture(error){
     console.log("error " + error);
     var source = document.createElement('source');
     source.setAttribute('src', 'video.mp4');
     MyCam.appendChild(source);
     MyCam.play();
 }
-
+function enregistrer(){
+    var base64 = document.getElementById('canvas').toDataURL("image/jpeg");
+    document.getElementById("enregistrer").href=base64;
+}
 function capture(){
 
     var seconds = 3;
@@ -68,9 +76,9 @@ function capture(){
             var base64 = document.getElementById('canvas').toDataURL("image/png");	//l'image au format base 64
             document.getElementById('tar').value = '';
             document.getElementById('tar').value = base64;
-            document.getElementById("btnCapture").textContent = "capturer";
-            document.getElementById("content").style.display = "block";
+            document.getElementById("btnCapture").textContent = "Recapturer";
+            document.getElementById("content").style.display = "inline";
+            document.getElementById("download").style.display = "inline";
         }
     }, 1000);
-
 }
