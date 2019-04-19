@@ -53,17 +53,23 @@ function ErrorCapture(error){
 }
 
 function capture(){
-    var seconds = document.getElementById("countdown").textContent;
+
+    var seconds = 3;
     var countdown = setInterval(function() {
+        document.getElementById("btnCapture").textContent = seconds;
         seconds--;
-        document.getElementById("countdown").textContent = seconds;
-        if (seconds <= 0){
+
+
+        if (seconds < 0){
+
             clearInterval(countdown);
             captureFlag = true;
             imcanvas.drawImage(MyCam, 0, 0, canvas.width, canvas.height);
             var base64 = document.getElementById('canvas').toDataURL("image/png");	//l'image au format base 64
             document.getElementById('tar').value = '';
             document.getElementById('tar').value = base64;
+            document.getElementById("btnCapture").textContent = "capturer";
+            document.getElementById("content").style.display = "block";
         }
     }, 1000);
 
