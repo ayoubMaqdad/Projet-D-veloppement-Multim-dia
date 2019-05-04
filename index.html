@@ -3,53 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Projet Développement Multimédia:capture d'ecran</title>
-    <script src="https://unpkg.com/konva@3.2.4/konva.min.js"></script>
+    
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="styleMultimedia.css"/>
     <script src="script_multimedia.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <style >
-        body {
-        margin: 0;
-        padding: 0;
-       
-        background-color: #f0f0f0;
-      }
-        .foo{
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            background-color: rgba(18, 27, 99, 0.514);
-            color: white;
-            padding: 10px;
-            text-align: center;
-        }
-
-        #titre{
-            color: darkblue;
-            text-align: center;
-            margin-top: 20px;
-        }
-        #divs,#content,#download{
-            display: none;
-        }
-        #header{
-            margin-top: 30px;
-            margin-bottom:  30px;
-        }
-        a
-{
-color: white;
-text-decoration: none;
-}
-
-    </style>
+ 
 </head>
 <body class="container">
 <h4 id="titre">Projet Développement Multimédia:capture d'ecran</h4>
 <div id="header" >
-    <h3 id="gg" class="custom-control-inline">commencer a capturer</h3><button onclick="init()" class="btn btn-primary">PHOTO</button>
+    <button onclick="init()" class="btn btn-primary btnCapture btnwith">commencer a capturer</button>
 </div>
 <div  class=" container" id="divs">
     <div class="row"  >
@@ -60,21 +24,133 @@ text-decoration: none;
         </div>
         <div class="col-md-6" >
             <canvas id="canvas" width="480" height="320" class="border border-primary" ></canvas>
-            <button class="btn btn-primary" id="btnCapture">Capture</button>
-            <button class="btn btn-primary "id="download" ><a  href="" download="img.jpeg" id="enregistrer">Enregistrer</a></button>
+            <button class="btn btn-primary btnwith" id="btnCapture">Capture</button>
+            
+            <p id="result"></p>
+            <!-- <button class="btn btn-primary btnwith "id="download" ><a  href="" download="img.jpeg" id="enregistrer">Enregistrer</a></button> -->
         </div>
     </div>
     <br>
     <div id="container"></div>
-    
+    <div class="row">
+        <div class="col-md-8 m-auto">
+          <div class="custom-file mb-3">
     <br>
-    <div id="content">
-        <h4 >code64 de la photo capture</h4> <textarea id='tar' style='width:50%;height:200px;'></textarea>
+    <div class="bottom-container">
+            <div id="photos">
+  <div id="content">
+      <img  id="imgeffets" src="" alt="">
+        <!-- <h4 >code64 de la photo capture</h4> <textarea id='tar' style='width:50%;height:200px;'></textarea> -->
+        <h4 class="text-center my-3">Filters</h4>
+
+      <div class="row my-4 text-center">
+        <div class="col-md-3">
+          <div class="btn-group btn-group-sm">
+            hue:
+      <input id="hue" type="range" min="0" max="259" step="1" value="150" />
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="btn-group btn-group-sm">
+            saturation:
+      <input
+        id="saturation"
+        type="range"
+        min="-2"
+        max="10"
+        step="0.5"
+        value="0"
+        oninput="filtercanvas(this.value)"
+      />
+          </div>
+        </div>
+
+   
+
+        <div class="col-md-3">
+          <div class="btn-group btn-group-sm">
+            luminance:
+      <input
+        id="luminance"
+        type="range"
+        min="-2"
+        max="2"
+        step="0.1"
+        value="0"
+      />
+          </div>
+        </div>
+      </div>
+      <!-- ./row -->
+
+      <h4 class="text-center my-3">Effects</h4>
+
+      <div class="row mb-3">
+        <div class="col-md-3">
+          <button class="filter-btn vintage-add btn btn-dark btn-block">
+              Vintage
+            </button>
+        </div>
+        <div class="col-md-3">
+          <button class="filter-btn lomo-add btn btn-dark btn-block">
+              Lomo
+            </button>
+        </div>
+        <div class="col-md-3">
+          <button class="filter-btn clarity-add btn btn-dark btn-block">
+              Clarity
+            </button>
+        </div>
+        <div class="col-md-3">
+          <button class="filter-btn sincity-add btn btn-dark btn-block">
+              Sin City
+            </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <button class="filter-btn crossprocess-add btn btn-dark btn-block">
+              Cross Process
+            </button>
+        </div>
+        <div class="col-md-3">
+          <button class="filter-btn pinhole-add btn btn-dark btn-block">
+              Pinhole
+            </button>
+        </div>
+        <div class="col-md-3">
+          <button class="filter-btn nostalgia-add btn btn-dark btn-block">
+              Nostalgia
+            </button>
+        </div>
+        <div class="col-md-3">
+          <button class="filter-btn hermajesty-add btn btn-dark btn-block">
+              Her Majesty
+            </button>
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-md-6">
+          <button class="btn btn-primary btn-block"id="download-btn" ><a  href="" download="img.jpeg" id="enregistrer">Enregistrer l'image</a></button>
+        </div>
+        <div class="col-md-6">
+          <button id="revert-btn" class="btn btn-danger btn-block" >Remove Filters</button>
+        </div>
     </div>
+         
+            </div>
+        </div>
+    
 
 </div>
+</div>
+</div>
+</div>
 
-<footer >
+<!-- <footer >
     <nav >
         
         <div class="foo" class="container" >
@@ -82,6 +158,6 @@ text-decoration: none;
                developed by ayoub maqdad glsid Copyright @2019
 
         </div>
-</footer>
+</footer> -->
 </body>
 </html>
