@@ -4,26 +4,31 @@ var canvas ;
 var btnCapture;
 var imcanvas;
 var captureFlag = false;
+
 const clearButton = document.getElementById('clear-button');
     
     const photoFilter = document.getElementById('photo-filter');
 function init(){
      downloadBtn = document.getElementById("download-btn");
-
+     revertBtn = document.getElementById("filt");
+    
     revertBtn = document.getElementById("revert-btn");  
     document.getElementById("divs").style.display = "block";
     
+    revertBtn = document.getElementById("revert-btn");  
     MyCam = document.getElementById("MyCam");
     canvas = document.getElementById("canvas");
     btnCapture = document.getElementById("btnCapture");
     btnDownload = document.getElementById("enregistrer");
-
+   
     imcanvas = canvas.getContext("2d");
 
     btnCapture.addEventListener("click", capture);
     // btnDownload.addEventListener("click", enregistrer);
     btnDownload.addEventListener("click", enregistrer);
      revertBtn.addEventListener("click", clearF); 
+     
+     filt.addEventListener("click", filterr); 
     capturer();
 
 }
@@ -98,34 +103,60 @@ function clearF(){
 
         img1.setAttribute('src',imgUrl);
        img2 = document.getElementById("imgeffets");
-      
+       img1.setAttribute('class',"border border-white")
         img1.setAttribute('id',"imgeffets");
         img1.style.filter = "none" ;
         content.replaceChild(img1, img2); 
 
 }
-photoFilter.addEventListener('change',function(e){
+function transform(id){
 
-    filter = e.target.value;
+    img2 = document.getElementById("imgeffets");
+    const imgUrl = img2.src;
 
-    img.style.filter = filter;
+    // create image element
 
-    e.preventDefault();
+    const img1 = document.createElement('img');
+   
+    // set img src
 
-});
+    img1.setAttribute('src',imgUrl);
+ 
+    img1.setAttribute('class',"border border-white")
+    img1.setAttribute('id',"imgeffets");
+        switch(id){
+            case "grayscale" : {
+                
+                
+                img1.style.filter = " grayscale(100%)" ;
+                break;
+            }
+            case "sepia" : {
+                
+                img1.style.filter = "sepia(100%)" ;
+                break;
+            }
+            case "invert" : {
+                
+                img1.style.filter += "saturate("+val1+"%) sepia("+val2+"%) contrast("+val+"%) brightness(" + val4 + "%)" ;
+                break;
+            }
+            case "hue-rotate" : {
+            
+                
+                img1.style.filter += " saturate("+val1+"%) sepia("+val2+"%) contrast("+val3+"%) brightness(" + val + "%)" ;
+                break;				
+            }
+           
+        } 
+        content.replaceChild(img1, img2); 
+
+}
+
 
 // event to clear out the photos
 
-clearButton.addEventListener('click',function(e){
 
-     photos.innerHTML = '';
-     filter = 'none';
-
-     imgg.style.filter = filter;
-
-     photoFilter.selectedIndex=0;
-
-});
 function capture(){
 
     var seconds = 3;
@@ -143,8 +174,8 @@ function capture(){
             // document.getElementById('tar').value = '';
             // document.getElementById('tar').value = base64;
             document.getElementById("btnCapture").textContent = "Recapturer";
-            document.getElementById("content").style.display = "block";
-             document.getElementById("download").style.display = "inline";
+            /* document.getElementById("content").style.display = "block";
+             document.getElementById("download").style.display = "inline"; */
        
 
        
@@ -156,18 +187,49 @@ function capture(){
     }, 1000);
 }
 
-function filtercanvas( val) {
-    
-    
-   
+
+function filterr(){
+    document.getElementById("content").style.display = "block";
+ 
     img2 = document.getElementById("imgeffets");
-    let val1 = parseFloat(document.getElementById('saturation').value );
-    
+    const imgUrl = canvas.toDataURL('image/png');
+    const img1 = document.createElement('img');
+       
+        // set img src
+
+        img1.setAttribute('src',imgUrl);
+       img2 = document.getElementById("imgeffets");
+       img1.setAttribute('class',"border border-white")
+        img1.setAttribute('id',"imgeffets");
+       
+        
+        content.replaceChild(img1, img2); 
+
+}
 
     
+       
+
+       
+
+        
+
+
+function filtercanvas(id,val) {
+    
+    
+    
+    img2 = document.getElementById("imgeffets");
+    let val1 = parseFloat(document.getElementById('saturation').value );
+    let val2 = parseFloat(document.getElementById('sepia').value );
+    let val3 = parseFloat(document.getElementById('contrast').value );
+    let val4 = parseFloat(document.getElementById('luminance').value );
+   
+    
+ 
            
              
-            const imgUrl = canvas.toDataURL('image/png');
+            const imgUrl = img2.src;
 
         // create image element
 
@@ -176,10 +238,35 @@ function filtercanvas( val) {
         // set img src
 
         img1.setAttribute('src',imgUrl);
-       img2 = document.getElementById("imgeffets");
-      
+     
+        img1.setAttribute('class',"border border-white")
         img1.setAttribute('id',"imgeffets");
-        img1.style.filter = "contrast("+val1+"%)" ;
+        switch(id){
+            case "saturation" : {
+                
+                
+                img1.style.filter += " saturate("+val+"%) sepia("+val2+"%) contrast("+val3+"%) brightness(" + val4 + "%)" ;
+                break;
+            }
+            case "sepia" : {
+                
+                img1.style.filter += " saturate("+val1+"%) sepia("+val+"%) contrast("+val3+"%) brightness(" + val4+ "%)" ;
+                break;
+            }
+            case "contrast" : {
+                
+                img1.style.filter += "saturate("+val1+"%) sepia("+val2+"%) contrast("+val+"%) brightness(" + val4 + "%)" ;
+                break;
+            }
+            case "luminance" : {
+            
+                
+                img1.style.filter += " saturate("+val1+"%) sepia("+val2+"%) contrast("+val3+"%) brightness(" + val + "%)" ;
+                break;				
+            }
+           
+        } 
+        
         content.replaceChild(img1, img2); 
         
        
