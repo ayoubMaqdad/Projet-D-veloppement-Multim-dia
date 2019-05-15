@@ -1,37 +1,88 @@
-var filter="none";
-var MyCam;
-var canvas ;
-var btnCapture;
-var imcanvas;
-var captureFlag = false;
 
-const clearButton = document.getElementById('clear-button');
-    
+
+	var range;
+	var MyCam;
+	var canvas ;
+	var btnCapture;
+	var imcanvas;
+	var captureFlag = false;
+  var imgg1;
+  var range;
+
+
+	const clearButton = document.getElementById('clear-button');
+		
     const photoFilter = document.getElementById('photo-filter');
-function init(){
-     downloadBtn = document.getElementById("download-btn");
-     revertBtn = document.getElementById("filt");
-    
-    revertBtn = document.getElementById("revert-btn");  
-    document.getElementById("divs").style.display = "block";
-    
-    revertBtn = document.getElementById("revert-btn");  
-    MyCam = document.getElementById("MyCam");
-    canvas = document.getElementById("canvas");
-    btnCapture = document.getElementById("btnCapture");
-    btnDownload = document.getElementById("enregistrer");
-   
-    imcanvas = canvas.getContext("2d");
+	function init(){
+		 downloadBtn = document.getElementById("download-btn");
+		 revertBtn = document.getElementById("filt");
+		
+		revertBtn = document.getElementById("revert-btn");  
+		document.getElementById("divs").style.display = "block";
+		document.getElementById("resizable").style.display = "block";
+		
+		revertBtn = document.getElementById("revert-btn");  
+		MyCam = document.getElementById("MyCam");
+		canvas = document.getElementById("canvas");
+		btnCapture = document.getElementById("btnCapture");
+		btnDownload = document.getElementById("enregistrer");
+	   
+		imcanvas = canvas.getContext("2d");
+        range=document.querySelectorAll('input[type=range]');
+		btnCapture.addEventListener("click", capture);
+		// btnDownload.addEventListener("click", enregistrer);
+        btnDownload.addEventListener("click", enregistrer);
+        
+		 revertBtn.addEventListener("click", clearF); 
+		 
+		 filt.addEventListener("click", filterr); 
+		capturer();
 
-    btnCapture.addEventListener("click", capture);
-    // btnDownload.addEventListener("click", enregistrer);
-    btnDownload.addEventListener("click", enregistrer);
-     revertBtn.addEventListener("click", clearF); 
-     
-     filt.addEventListener("click", filterr); 
-    capturer();
+    }
+    function getOffset( el ) {
+        var _x = 0; 
+        var _y = 0;
+        while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+            _x += el.offsetLeft - el.scrollLeft;
+            _y += el.offsetTop - el.scrollTop;
+            el = el.offsetParent;
+        }
+        return { top: _y, left: _x };
+    }
+	
+	function cropphoto(){
+            
+            //img1 = document.createElement("img");
+			//img1.src =  document.getElementById('canvas').toDataURL("image/jpeg");
+			var destW = 480;
+			var destH = 320;
+			var destX = 0;
+            var destY = 0;
+            var sourceCX = getOffset(document.getElementById('canva')).left;
+            var sourceCY = getOffset(document.getElementById('canva')).top;
+            var sourceX = document.getElementById('resizable').offsetLeft;
+            console.log(sourceX);
+            var sourceY = document.getElementById('resizable').offsetTop;
+        
+            console.log(sourceY);
+			var sourceW = document.getElementById('resizable').offsetWidth;
+            console.log(sourceCY);
+			var sourceH = document.getElementById('resizable').offsetHeight;
+           //900 300 t 300 l 900
+            console.log(sourceCX);
+            imcanvas.clearRect(0, 0, canvas.width, canvas.height);
+            imcanvas.drawImage(imgg1, sourceX-sourceCX, sourceY-sourceCY, sourceW, sourceH, destX, destY, destW, destH);
+         
+			imgg1.src =  document.getElementById('canvas').toDataURL("image/jpeg", 1.0);
+			
+            
+           
+            canvas.prepend(imgg1);
 
-}
+            
+        
+          
+		}
 
 function capturer(){
     navigator.getUserMedia = (
@@ -72,14 +123,13 @@ function ereurCapture(error){
 //     document.getElementById("enregistrer").href=base64;
 // }
 function enregistrer(){
-    imgg = document.getElementById("imgeffets");
-    imcanvas.filter= imgg.style.filter;
-    imcanvas.drawImage(imgg, 0, 0, canvas.width, canvas.height);
+   
+  
+    
     var base64 = document.getElementById('canvas').toDataURL("image/jpeg");
     document.getElementById("enregistrer").href=base64;
     
-    imcanvas.filter= "none";
-    imcanvas.drawImage(imgg, 0, 0, canvas.width, canvas.height);
+    
         
 
         
@@ -87,69 +137,9 @@ function enregistrer(){
 }
 function clearF(){
 
-    img2 = document.getElementById("imgeffets");
-   
-    
-
-    
-   
-            const imgUrl = canvas.toDataURL('image/png');
-
-        // create image element
-
-        const img1 = document.createElement('img');
-       
-        // set img src
-
-        img1.setAttribute('src',imgUrl);
-       img2 = document.getElementById("imgeffets");
-       img1.setAttribute('class',"border border-white")
-        img1.setAttribute('id',"imgeffets");
-        img1.style.filter = "none" ;
-        content.replaceChild(img1, img2); 
-
-}
-function transform(id){
-
-    img2 = document.getElementById("imgeffets");
-    const imgUrl = img2.src;
-
-    // create image element
-
-    const img1 = document.createElement('img');
-   
-    // set img src
-
-    img1.setAttribute('src',imgUrl);
- 
-    img1.setAttribute('class',"border border-white")
-    img1.setAttribute('id',"imgeffets");
-        switch(id){
-            case "grayscale" : {
-                
-                
-                img1.style.filter = " grayscale(100%)" ;
-                break;
-            }
-            case "sepia" : {
-                
-                img1.style.filter = "sepia(100%)" ;
-                break;
-            }
-            case "invert" : {
-                
-                img1.style.filter += "saturate("+val1+"%) sepia("+val2+"%) contrast("+val+"%) brightness(" + val4 + "%)" ;
-                break;
-            }
-            case "hue-rotate" : {
-            
-                
-                img1.style.filter += " saturate("+val1+"%) sepia("+val2+"%) contrast("+val3+"%) brightness(" + val + "%)" ;
-                break;				
-            }
-           
-        } 
-        content.replaceChild(img1, img2); 
+    imcanvas.filter = "none";
+    //imcanvas.filter="contrast(240%)";
+    imcanvas.drawImage(imgg1, 0, 0, canvas.width, canvas.height);
 
 }
 
@@ -165,14 +155,20 @@ function capture(){
         seconds--;
 
 
+
         if (seconds < 0){
 
             clearInterval(countdown);
             captureFlag = true;
+
             imcanvas.drawImage(MyCam, 0, 0, canvas.width, canvas.height);
-            var base64 = document.getElementById('canvas').toDataURL("image/png");	//l'image au format base 64
-            // document.getElementById('tar').value = '';
-            // document.getElementById('tar').value = base64;
+
+            imgg1 = document.createElement("img");
+			imgg1.src =  document.getElementById('canvas').toDataURL("image/jpeg", 1.0);
+			
+            
+           
+            canvas.prepend(imgg1);
             document.getElementById("btnCapture").textContent = "Recapturer";
             /* document.getElementById("content").style.display = "block";
              document.getElementById("download").style.display = "inline"; */
@@ -191,87 +187,29 @@ function capture(){
 function filterr(){
     document.getElementById("content").style.display = "block";
  
-    img2 = document.getElementById("imgeffets");
-    const imgUrl = canvas.toDataURL('image/png');
-    const img1 = document.createElement('img');
-       
-        // set img src
-
-        img1.setAttribute('src',imgUrl);
-       img2 = document.getElementById("imgeffets");
-       img1.setAttribute('class',"border border-white")
-        img1.setAttribute('id',"imgeffets");
-       
-        
-        content.replaceChild(img1, img2); 
-
+   
 }
 
     
        
 
-       
+    
 
-        
-
-
-function filtercanvas(id,val) {
+function filter() {
     
     
-    
-    img2 = document.getElementById("imgeffets");
-    let val1 = parseFloat(document.getElementById('saturation').value );
-    let val2 = parseFloat(document.getElementById('sepia').value );
-    let val3 = parseFloat(document.getElementById('contrast').value );
-    let val4 = parseFloat(document.getElementById('luminance').value );
-   
     
  
-           
-             
-            const imgUrl = img2.src;
+    var computedFilters = '';
+    var r = document.querySelectorAll('input[type=range]');
+    r.forEach(function(item, index){
+        computedFilters += item.getAttribute('data-filter') + '(' + item.value + item.getAttribute('data-scale') + ') ';
 
-        // create image element
-
-        const img1 = document.createElement('img');
-       
-        // set img src
-
-        img1.setAttribute('src',imgUrl);
-     
-        img1.setAttribute('class',"border border-white")
-        img1.setAttribute('id',"imgeffets");
-        switch(id){
-            case "saturation" : {
-                
-                
-                img1.style.filter += " saturate("+val+"%) sepia("+val2+"%) contrast("+val3+"%) brightness(" + val4 + "%)" ;
-                break;
-            }
-            case "sepia" : {
-                
-                img1.style.filter += " saturate("+val1+"%) sepia("+val+"%) contrast("+val3+"%) brightness(" + val4+ "%)" ;
-                break;
-            }
-            case "contrast" : {
-                
-                img1.style.filter += "saturate("+val1+"%) sepia("+val2+"%) contrast("+val+"%) brightness(" + val4 + "%)" ;
-                break;
-            }
-            case "luminance" : {
-            
-                
-                img1.style.filter += " saturate("+val1+"%) sepia("+val2+"%) contrast("+val3+"%) brightness(" + val + "%)" ;
-                break;				
-            }
-           
-        } 
-        
-        content.replaceChild(img1, img2); 
-        
-       
+    });
     
-   
+    imcanvas.filter = computedFilters;
+    //imcanvas.filter="contrast(240%)";
+    imcanvas.drawImage(imgg1, 0, 0, canvas.width, canvas.height);
       
     
    

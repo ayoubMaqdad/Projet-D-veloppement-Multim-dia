@@ -10,7 +10,17 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     
 </head>
-<body >  
+<body > 
+   
+      
+		<div class='resizable' id="resizable">
+        <div class='resizers'>
+          <div class='resizer top-left'></div>
+          <div class='resizer top-right'></div>
+          <div class='resizer bottom-left'></div>
+          <div class='resizer bottom-right'></div>
+        </div>  
+        </div>  
   <div class="navbar">
           <h4>Projet Développement Multimédia:capture d'ecran</h4>
       </div>
@@ -18,9 +28,10 @@
     
   
   <div id="header" >
+
       <button onclick="init()" class="btn btn-dark btnCapture btnwith">commencer a capturer</button>
   </div>
-  <div  class=" container" id="divs">
+  <div class=" container" id="divs">
       <div class="row"  >
           <div class="col-md-6" >
               <div id="webcam_container">
@@ -29,7 +40,14 @@
           </div>
           
           <div class="col-md-6" >
-            <canvas id="canvas" width="480" height="320" class="border border-white" ></canvas>
+     <div id="canva">
+       <canvas id="canvas" width="480" height="320" class="border border-white" ></canvas>
+              
+     </div>
+              
+             
+          
+            
             <button class="btn btn-light btnwith" id="btnCapture">Capture</button>
             
             
@@ -39,7 +57,7 @@
                   </button>
              
               
-                <button class="btnwith1  btn btn-dark ">
+                <button  onclick="cropphoto()" class="btnwith1  btn btn-dark ">
                     redimentionner
                   </button>
              
@@ -53,7 +71,7 @@
           
       </div>
       <br>
-      <div id="container"></div>
+     
       <div class="row">
           <div class=" m-auto">
             <div class="custom-file mb-3">
@@ -61,147 +79,137 @@
       <div class="bottom-container">
               <div id="photos">
     <div id="content">
-        <img class="border border-white"  id="imgeffets" src="" alt="">
-          <!-- <h4 >code64 de la photo capture</h4> <textarea id='tar' style='width:50%;height:200px;'></textarea> -->
-          <h4 class="text-center my-3 text-white">Filters</h4>
-  
-        <div class="row my-4 text-center">
-          <div class="row mb-4">
-            <div class="col-md-3 btn-group ">
-             <h5 class="text-light">contrast:</h5> 
-        <input id="contrast" type="range" min="0" max="100" value="100" 
-        oninput="filtercanvas(this.id,this.value)"/>
-            </div>
-       
-  
-         
-            <div class=" col-md-3 btn-group ">
-                <h5 class="text-light">saturation:</h5> 
-        <input
-          id="saturation"
-          type="range"
-          min="0"
-          max="100"
-         
-          value="100"
-          oninput="filtercanvas(this.id,this.value)"
-        />
-            </div>
-       
-  
-       
-            <div class=" col-md-3 btn-group ">
-                <h5 class="text-light">sepia:</h5> 
-        <input
-          id="sepia"
-          type="range"
-          min="0"
-          max="100"
-          
-          value="0"
-          oninput="filtercanvas(this.id,this.value)"
-        />
-            </div>
-      
-  
-     
-  
-          
-            <div class=" col-md-3 btn-group ">
-                <h5 class="text-light">luminance:</h5> 
-        <input
-          id="luminance"
-          type="range"
-          min="0"
-          max="100"
         
-          value="100"
-          oninput="filtercanvas(this.id,this.value)"
-        />
-      
-            </div>
-         </div>
-        </div>
-        <!-- ./row -->
-  <!-- 
-        <h4 class="text-center my-3">Effects</h4>
-  
-        <div class="row mb-3">
-          <div class="col-md-3">
-            <button
-             id="Grayscale" class="filter-btn vintage-add btn btn-dark btn-block" onclick="transform(this.id)">
-                Grayscale
-              </button>
-          </div>
-          <div class="col-md-3">
-            <button id="Sepia" class="filter-btn lomo-add btn btn-dark btn-block" onclick="transform(this.id)">
-                Sepia
-              </button>
-          </div>
-          <div class="col-md-3">
-            <button id="Invert" class="filter-btn clarity-add btn btn-dark btn-block" onclick="transform(this.id)">
-                Invert
-              </button>
-          </div>
-          <div class="col-md-3">
-            <button id="Hue" class="filter-btn sincity-add btn btn-dark btn-block" onclick="transform(this.id)">
-                Hue
-              </button>
-          </div>
-        </div>
-  
-        <div class="row">
-          <div class="col-md-3">
-            <button id="Blur" class="filter-btn crossprocess-add btn btn-dark btn-block" onclick="transform(this.id)">
-                Blur
-              </button>
-          </div>
-          <div class="col-md-3">
-            <button id="Contrast" class="filter-btn pinhole-add btn btn-dark btn-block" onclick="transform(this.id)">
-                Contrast
-              </button>
-          </div>
-          <div class="col-md-3">
-            <button id=" Nostalgia" class="filter-btn nostalgia-add btn btn-dark btn-block" onclick="transform(this.id)">
-                Nostalgia
-              </button>
-          </div>
-          <div class="col-md-3">
-            <button id="Nostalgia" class="filter-btn hermajesty-add btn btn-dark btn-block" onclick="transform(this.id)">
-                 Nostalgia
-              </button>
-          </div>
-        </div>
-   -->
-        <div class="row mt-5">
-          <div class="col-md-6">
-            <button id="transform" class="btn btn-primary btn-block"id="download-btn" ><a  href="" download="img.jpeg" id="enregistrer">Enregistrer l'image</a></button>
-          </div>
-          <div class="col-md-6">
-            <button id="revert-btn" class="btn btn-danger btn-block" >Remove Filters</button>
-          </div>
-      </div>
-           
-              </div>
-          </div>
-      
-  
-  </div>
-  </div>
-  </div>
-  </div>
-  
-  <!-- <footer >
-      <nav >
-          
-          <div class="foo" class="container" >
-  
-                 developed by ayoub maqdad glsid Copyright @2019
-  
-          </div>
-  </footer> -->
-  </div>
+        <h4 class="text-center my-3 text-white">Filters</h4>
+        <div class="row my-4 text-center">
+            <div class="row mb-4">
+              <div class="col-md-3 btn-group ">
+                  <h5 class="text-light">luminance:</h5> 
+                
+                      <input class="inprange" id="luminance" type="range" min="0" max="200" value="100" step="1" onchange="filter()" data-filter="brightness" data-scale="%">
+                  
+                  </div>   
 
+                  <div class="col-md-3 btn-group ">
+                      <h5 class="text-light">sepia:</h5> 
+                    
+                          <input class="inprange" id="luminance" type="range" min="0" max="200" value="100" step="1" onchange="filter()" data-filter="sepia" data-scale="%">
+                      
+                      </div>   
+                      <div class="col-md-3 btn-group ">
+                          <h5 class="text-light">saturation:</h5> 
+                        
+                              <input class="inprange" id="luminance" type="range" min="0" max="200" value="100" step="1" onchange="filter()" data-filter="saturate" data-scale="%">
+                          
+                          </div>   
+                          <div class="col-md-3 btn-group ">
+                              <h5 class="text-light">contrast:</h5> 
+                            
+                                  <input class="inprange" id="luminance" type="range" min="0" max="200" value="100" step="1" onchange="filter()" data-filter="contrast" data-scale="%">
+                              
+                              </div>   
+                </div>
+              </div>     
+   <div class="row mt-5">
+      <div class="col-md-6">
+        <button id="transform" class="btn btn-primary btn-block"id="download-btn" ><a  href="" download="img.jpeg" id="enregistrer">Enregistrer l'image</a></button>
+      </div>
+      <div class="col-md-6">
+        <button id="revert-btn" class="btn btn-danger btn-block" >Remove Filters</button>
+      </div>
+      
+      
+  </div>
+           
+   
+  
+
+ 
+</div>
+</div>
+</div>
+</div>
+  
+  <script>
+		/* Make resizable div */
+		function makeResizableDiv(div) {
+			const element = document.querySelector(div);
+			const resizers = document.querySelectorAll(div + ' .resizer')
+			const minimum_size = 20;
+			let original_width = 0;
+			let original_height = 0;
+			let original_x = 0;
+			let original_y = 0;
+			let original_mouse_x = 0;
+			let original_mouse_y = 0;
+			for (let i = 0;i < resizers.length; i++) {
+				const currentResizer = resizers[i];
+				currentResizer.addEventListener('mousedown', function(e) {
+					e.preventDefault()
+					original_width = parseFloat(getComputedStyle(element, null).getPropertyValue('width').replace('px', ''));
+					original_height = parseFloat(getComputedStyle(element, null).getPropertyValue('height').replace('px', ''));
+					original_x = element.getBoundingClientRect().left;
+					original_y = element.getBoundingClientRect().top;
+					original_mouse_x = e.pageX;
+					original_mouse_y = e.pageY;
+					window.addEventListener('mousemove', resize)
+					window.addEventListener('mouseup', stopResize)
+				})
+				
+				function resize(e) {
+					if (currentResizer.classList.contains('bottom-right')) {
+						const width = original_width + (e.pageX - original_mouse_x);
+						const height = original_height + (e.pageY - original_mouse_y)
+						if (width > minimum_size) {
+							element.style.width = width + 'px'
+						}
+						if (height > minimum_size) {
+							element.style.height = height + 'px'
+						}
+					}
+					else if (currentResizer.classList.contains('bottom-left')) {
+						const height = original_height + (e.pageY - original_mouse_y)
+						const width = original_width - (e.pageX - original_mouse_x)
+						if (height > minimum_size) {
+							element.style.height = height + 'px'
+						}
+						if (width > minimum_size) {
+							element.style.width = width + 'px'
+							element.style.left = original_x + (e.pageX - original_mouse_x) + 'px'
+						}
+					}
+					else if (currentResizer.classList.contains('top-right')) {
+						const width = original_width + (e.pageX - original_mouse_x)
+						const height = original_height - (e.pageY - original_mouse_y)
+						if (width > minimum_size) {
+							element.style.width = width + 'px'
+						}
+						if (height > minimum_size) {
+							element.style.height = height + 'px'
+							element.style.top = original_y + (e.pageY - original_mouse_y) + 'px'
+						}
+					}
+					else {
+						const width = original_width - (e.pageX - original_mouse_x)
+						const height = original_height - (e.pageY - original_mouse_y)
+						if (width > minimum_size) {
+							element.style.width = width + 'px'
+							element.style.left = original_x + (e.pageX - original_mouse_x) + 'px'
+						}
+						if (height > minimum_size) {
+							element.style.height = height + 'px'
+							element.style.top = original_y + (e.pageY - original_mouse_y) + 'px'
+						}
+					}
+				}
+				function stopResize() {
+					window.removeEventListener('mousemove', resize)
+				}
+			}
+		}
+		makeResizableDiv('.resizable')
+    </script>
+	
     
 </body>
 </html>
