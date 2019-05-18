@@ -7,6 +7,7 @@
 	var imcanvas;
 	var captureFlag = false;
   var imgg1;
+  var imgg2;
   var range;
 
 
@@ -19,7 +20,7 @@
 		
 		revertBtn = document.getElementById("revert-btn");  
 		document.getElementById("divs").style.display = "block";
-		document.getElementById("resizable").style.display = "block";
+	
 		
 		revertBtn = document.getElementById("revert-btn");  
 		MyCam = document.getElementById("MyCam");
@@ -51,13 +52,16 @@
     }
 	
 	function cropphoto(){
-            
+
+            	
             //img1 = document.createElement("img");
-			//img1.src =  document.getElementById('canvas').toDataURL("image/jpeg");
+            //img1.src =  document.getElementById('canvas').toDataURL("image/jpeg");
+            
 			var destW = 480;
 			var destH = 320;
 			var destX = 0;
             var destY = 0;
+            
             var sourceCX = getOffset(document.getElementById('canva')).left;
             var sourceCY = getOffset(document.getElementById('canva')).top;
             var sourceX = document.getElementById('resizable').offsetLeft;
@@ -140,7 +144,6 @@ function clearF(){
     imcanvas.filter = "none";
     //imcanvas.filter="contrast(240%)";
     imcanvas.drawImage(imgg1, 0, 0, canvas.width, canvas.height);
-
 }
 
 
@@ -166,9 +169,11 @@ function capture(){
             imgg1 = document.createElement("img");
 			imgg1.src =  document.getElementById('canvas').toDataURL("image/jpeg", 1.0);
 			
-            
+            imgg2 = document.createElement("img");
+             imgg2=Object.assign({},imgg1);
            
             canvas.prepend(imgg1);
+            document.getElementById("resizable").style.display = "block";
             document.getElementById("btnCapture").textContent = "Recapturer";
             /* document.getElementById("content").style.display = "block";
              document.getElementById("download").style.display = "inline"; */

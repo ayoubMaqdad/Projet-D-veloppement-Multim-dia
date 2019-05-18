@@ -19,6 +19,10 @@
           <div class='resizer top-right'></div>
           <div class='resizer bottom-left'></div>
           <div class='resizer bottom-right'></div>
+          <div class='resizer top'></div>
+          <div class='resizer right'></div>
+          <div class='resizer left'></div>
+          <div class='resizer bottom'></div>
         </div>  
         </div>  
   <div class="navbar">
@@ -160,20 +164,38 @@
 					if (currentResizer.classList.contains('bottom-right')) {
 						const width = original_width + (e.pageX - original_mouse_x);
 						const height = original_height + (e.pageY - original_mouse_y)
-						if (width > minimum_size) {
+						if (width > minimum_size && canvas.getBoundingClientRect().right>element.getBoundingClientRect().left+width) {
 							element.style.width = width + 'px'
 						}
-						if (height > minimum_size) {
+						if (height > minimum_size && canvas.getBoundingClientRect().bottom>element.getBoundingClientRect().top+height) {
+							element.style.height = height + 'px'
+						}
+          }
+          
+          else if (currentResizer.classList.contains('bottom')) {
+						
+						const height = original_height + (e.pageY - original_mouse_y)
+					
+						if (height > minimum_size && height > minimum_size && canvas.getBoundingClientRect().bottom>element.getBoundingClientRect().top+height) {
 							element.style.height = height + 'px'
 						}
 					}
 					else if (currentResizer.classList.contains('bottom-left')) {
 						const height = original_height + (e.pageY - original_mouse_y)
 						const width = original_width - (e.pageX - original_mouse_x)
-						if (height > minimum_size) {
+						if (height > minimum_size && canvas.getBoundingClientRect().bottom>element.getBoundingClientRect().top+height) {
 							element.style.height = height + 'px'
 						}
-						if (width > minimum_size) {
+						if (width > minimum_size  && canvas.getBoundingClientRect().left<original_x + (e.pageX - original_mouse_x)) {
+							element.style.width = width + 'px'
+							element.style.left = original_x + (e.pageX - original_mouse_x) + 'px'
+						}
+          }
+          else if (currentResizer.classList.contains('left')) {
+						
+						const width = original_width - (e.pageX - original_mouse_x)
+				
+						if (width > minimum_size  && canvas.getBoundingClientRect().left<original_x + (e.pageX - original_mouse_x)) {
 							element.style.width = width + 'px'
 							element.style.left = original_x + (e.pageX - original_mouse_x) + 'px'
 						}
@@ -181,10 +203,27 @@
 					else if (currentResizer.classList.contains('top-right')) {
 						const width = original_width + (e.pageX - original_mouse_x)
 						const height = original_height - (e.pageY - original_mouse_y)
-						if (width > minimum_size) {
+						if (width > minimum_size && canvas.getBoundingClientRect().right>element.getBoundingClientRect().left+width) {
 							element.style.width = width + 'px'
 						}
-						if (height > minimum_size) {
+						if (height > minimum_size && canvas.getBoundingClientRect().top<original_y + (e.pageY - original_mouse_y)) {
+							element.style.height = height + 'px'
+							element.style.top = original_y + (e.pageY - original_mouse_y) + 'px'
+						}
+          }
+          else if (currentResizer.classList.contains('right')) {
+						const width = original_width + (e.pageX - original_mouse_x)
+					
+						if (width > minimum_size && canvas.getBoundingClientRect().right>element.getBoundingClientRect().left+width) {
+							element.style.width = width + 'px'
+						}
+						
+          }
+          else if (currentResizer.classList.contains('top')) {
+					
+						const height = original_height - (e.pageY - original_mouse_y)
+					
+						if (height > minimum_size && canvas.getBoundingClientRect().top<original_y + (e.pageY - original_mouse_y)) {
 							element.style.height = height + 'px'
 							element.style.top = original_y + (e.pageY - original_mouse_y) + 'px'
 						}
@@ -192,11 +231,11 @@
 					else {
 						const width = original_width - (e.pageX - original_mouse_x)
 						const height = original_height - (e.pageY - original_mouse_y)
-						if (width > minimum_size) {
+						if (width > minimum_size && canvas.getBoundingClientRect().left<original_x + (e.pageX - original_mouse_x)) {
 							element.style.width = width + 'px'
 							element.style.left = original_x + (e.pageX - original_mouse_x) + 'px'
 						}
-						if (height > minimum_size) {
+						if (height > minimum_size && canvas.getBoundingClientRect().top<original_y + (e.pageY - original_mouse_y)) {
 							element.style.height = height + 'px'
 							element.style.top = original_y + (e.pageY - original_mouse_y) + 'px'
 						}
